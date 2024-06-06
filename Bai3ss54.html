@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function sumArrayWithPromise(numbers) {
+            return new Promise((resolve, reject) => {
+                if (!Array.isArray(numbers) || numbers.some(num => typeof num !== 'number')) {
+                    reject('Invalid input');
+                } else {
+                    const sum = numbers.reduce((acc, num) => acc + num, 0);
+                    resolve(sum);
+                }
+            });
+        }
+
+        sumArrayWithPromise([1, 2, 3, 4, 5, 6, 7])
+        .then(result => console.log(result)) 
+        .catch(error => console.error(error));
+    </script>
+</body>
+</html>

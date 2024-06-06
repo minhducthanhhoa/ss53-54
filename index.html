@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 
+        Đồng bộ và bất đồng bộ
+        1. đồng bộ
+         ngôn ngữ javascript là ngôn ngữ đơn luồng, chỉ 1 luồng duy nhất,
+         luồng code chạy từ trái sang phải và từ trên xuống dưới
+        2. Bất đồng bộ
+         - những việc cần thời gian xử lí như các hàm setimount, setInterval, readfile 
+         gửi lên server, các thao tác tương tác database
+         - dùng callback
+            là 1 hàm được truyền vào làm đối số của hàm khác 
+         - promise
+         - async-avait
+
+     -->
+     <script>
+        // console.log("công việc 1");
+        // setTimeout(() => {
+        //     console.log("công việc 2");
+        // },1000)
+        // console.log("công việc 3");
+        function task1(a) {
+            setTimeout(() =>{
+                console.log("công việc 1 được thực hiện");
+                a();
+            },2000)
+        }
+        function task2() {
+            console.log("được thực thi sau khi tác 1 hoàn thành");
+        }
+        // task1(task2);
+        setTimeout(() => {
+            console.log("công việc 1 thực thi");
+            setTimeout(() => {
+                console.log("công việc 2 thực thi sau khi công việc 1 hoàn thành");
+                setTimeout(() => {
+                    console.log("công việc 3 thực thi sau khi công việc 2 hoàn thành");
+                }, 1000);
+            }, 1000);
+        },1000)
+        // khi viết nhiều callback lồng nhau thì sẽ rơi vào tình trạng là callback hell
+        let array = [1,2,3,4,5];
+        // let result = array.map((item) => {
+        //     return item*2
+        // })
+        // dùng callback
+        function myMap(a,b) {
+            let result = [];
+            for (const item of array) {
+                result.push(b(item));
+            }
+            return result;
+        }
+        myMap(array,(item) => item*2);
+
+        function myfilter(a,b) {
+            let result1 = [];
+            for (const item of array) {
+                if (b(item)){
+                    result1.push(item);
+                }
+            }
+            console.log(result1);
+        }
+        myfilter(array,(item) => item > 3);
+     </script>
+</body>
+</html>

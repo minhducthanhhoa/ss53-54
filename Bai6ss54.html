@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        async function isPrimeWithAsyncAwait(number) {
+            try {
+                const isPrime = await new Promise((resolve, reject) => {
+                    if (typeof number !== 'number' || number < 2 || !Number.isInteger(number)) {
+                        reject('Invalid input');
+                    } else {
+                        let isPrime = true;
+                        for (let i = 2; i <= Math.sqrt(number); i++) {
+                            if (number % i === 0) {
+                                isPrime = false;
+                                break;
+                            }
+                        }
+                        resolve(isPrime);
+                    }
+                });
+
+                return isPrime;
+            } catch (error) {
+                console.error(`Lỗi: ${error}`);
+            }
+        }
+
+        (async () => {
+            console.log(await isPrimeWithAsyncAwait(2)); 
+            console.log(await isPrimeWithAsyncAwait(3)); 
+            console.log(await isPrimeWithAsyncAwait(4));
+        })();
+    </script>
+</body>
+</html>
